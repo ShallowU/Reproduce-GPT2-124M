@@ -25,6 +25,42 @@ python3 -c "import huggingface_hub, tiktoken, matplotlib; print('All packages in
 # 使用 token 登录
 python3 -c "from huggingface_hub import login; login(token='')"
 
+
+
+
+# 1. 检查CUDA库状态
+find /usr -name "libcuda.so*" 2>/dev/null
+
+
+
+
+
+
+
+
+# 1. 备份并移除32位库干扰
+sudo mv /usr/lib/i386-linux-gnu/libcuda.so /usr/lib/i386-linux-gnu/libcuda.so.backup
+
+# 2. 确保64位库链接正确
+sudo ln -sf /usr/lib/x86_64-linux-gnu/libcuda.so.1 /usr/lib/x86_64-linux-gnu/libcuda.so
+
+# 3. 在CUDA目录创建标准链接
+sudo ln -sf /usr/lib/x86_64-linux-gnu/libcuda.so.1 /usr/local/cuda-12.4/lib64/libcuda.so
+
+# 4. 更新库缓存
+sudo ldconfig
+
+# 5. 设置环境变量
+export CUDA_HOME=/usr/local/cuda-12.4
+export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64:/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+
+
+
+
+
+
+
 python train_gpt2_1A6000.py
 
 tail -f log/log.txt
