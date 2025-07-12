@@ -1,0 +1,34 @@
+# 在本地终端执行
+ssh -i <path-to-your-private-key> ubuntu@<lambda-instance-ip>
+
+# 更新系统并安装必要工具
+sudo apt update
+sudo apt install git-lfs -y
+
+# 设置 Hugging Face token 环境变量
+export HF_TOKEN=""
+
+# 克隆你的训练代码
+git clone https://github.com/ShallowU/Reproduce-GPT2-124M.git
+cd Reproduce-GPT2-124M
+
+# 检查 Python 和 PyTorch 环境
+python3 --version
+python3 -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU count: {torch.cuda.device_count()}')"
+
+# 安装项目依赖
+pip install huggingface_hub tiktoken matplotlib numpy transformers
+
+# 验证安装
+python3 -c "import huggingface_hub, tiktoken, matplotlib; print('All packages installed successfully')"
+
+# 使用 token 登录
+python3 -c "from huggingface_hub import login; login(token='')"
+
+python train_gpt2_1A6000.py
+
+tail -f log/log.txt
+
+watch -n 1 nvidia-smi
+
+python3 upload_hf_1A6000.py
