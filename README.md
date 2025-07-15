@@ -6,7 +6,7 @@
 
 🚀 **从零开始复现GPT-2 (124M)模型的完整训练流程**
 
-这个项目实现了完整的GPT-2 124M参数模型的从头训练，包括分布式训练、数据处理、模型评估和可视化等功能。
+这个项目实现了完整的GPT-2 124M参数模型的从头训练，包括分布式训练、数据处理、模型评估和可视化等功能。<br>
 模型huggingface地址：[GPT2-124M](https://huggingface.co/ShallowU/GPT2-124M)
 ![loss](./loss.png)
 
@@ -68,8 +68,8 @@ pip install huggingface_hub tiktoken matplotlib numpy transformers
 ```bash
 # 数据集信息
 HuggingFace Repository: ShallowU/FineWeb-Edu-10B-Tokens-NPY
-Size: ~10B tokens (教育相关的高质量文本)
-Format: NumPy arrays for efficient loading
+Size: 10B tokens (教育相关的高质量文本)
+Format: NumPy arrays to efficiently load
 ```
 
 ### 3. 开始训练
@@ -92,8 +92,9 @@ python train_gpt2_8A100.py
 ```bash
 
 # 8卡A100训练示例
-torchrun --nproc_per_node=8 train_gpt2_8A100.py
+torchrun --standalone --nproc_per_node=8 train_gpt2_8A100.py
 ```
+具体训练详细一步步流程请参考 [workflow.txt](workflow.txt)
 
 ## 📊 训练配置
 
@@ -118,7 +119,6 @@ torchrun --nproc_per_node=8 train_gpt2_8A100.py
 ## 🤝 参考资料
 
 - [Andrej Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT)
-- [Let's build GPT](https://www.youtube.com/watch?v=kCc8FmEb1nY)
 - [Let's reproduce GPT-2](https://youtu.be/l8pRSuU81PU)
 - [GPT-2 Paper](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 - [GPT-3 Paper](https://arxiv.org/abs/2005.14165)
