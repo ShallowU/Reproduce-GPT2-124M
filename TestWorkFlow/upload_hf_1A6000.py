@@ -6,7 +6,7 @@ from huggingface_hub import HfApi
 def upload_results_to_hf():
     """上传A6000测试结果到 Hugging Face"""
     api = HfApi()
-    repo_id = "ShallowU/GPT2-124m"
+    repo_id = " " # 替换为你的 Hugging Face 模型仓库 ID，例如 "ShallowU/GPT2-124M"
     
     # 检查log目录中的所有文件
     log_dir = "log"

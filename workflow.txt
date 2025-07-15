@@ -1,12 +1,12 @@
 # 在本地终端执行
-ssh -i <path-to-your-private-key> ubuntu@<lambda-instance-ip>
+ssh your gpu box
 
 # 更新系统并安装必要工具
 sudo apt update
 sudo apt install git-lfs -y
 
 # 设置 Hugging Face token 环境变量
-export HF_TOKEN=""
+export HF_TOKEN="your access token" # 改为你的access tokens
 
 # 克隆你的训练代码
 git clone https://github.com/ShallowU/Reproduce-GPT2-124M.git
@@ -23,21 +23,14 @@ pip install huggingface_hub tiktoken matplotlib numpy transformers
 python3 -c "import huggingface_hub, tiktoken, matplotlib; print('All packages installed successfully')"
 
 # 使用 token 登录
-python3 -c "from huggingface_hub import login; login(token='')"
-
-
+python3 -c "from huggingface_hub import login; login(token='your access token')" # 改为你的access tokens
 
 
 # 1. 检查CUDA库状态
 find /usr -name "libcuda.so*" 2>/dev/null
+# 如果存在i386的cuda库，即32位的库会影响cuda compile ，所以如果你要使用torch.compile需要将下面配置一下（粘贴整个```  ```内容即可）
 
-
-
-
-
-
-
-
+```
 # 1. 备份并移除32位库干扰
 sudo mv /usr/lib/i386-linux-gnu/libcuda.so /usr/lib/i386-linux-gnu/libcuda.so.backup
 
@@ -54,17 +47,17 @@ sudo ldconfig
 export CUDA_HOME=/usr/local/cuda-12.4
 export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64:/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
+```
 
+# 使用2张GPU启动训练
+torchrun --standalone --nproc_per_node=2 train_gpt2_8A100.py
 
-
-
-
-
-
-python train_gpt2_1A6000.py
-
+# 查看最后10行的训练结果
 tail -f log/log.txt
 
+
+# 监视GPU使用情况
 watch -n 1 nvidia-smi
 
-python3 upload_hf_1A6000.py
+# 传送数据记录图片等到huggingface
+python3 upload_hf_8A100.py

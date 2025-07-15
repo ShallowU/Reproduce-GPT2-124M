@@ -428,7 +428,7 @@ if __name__ == "__main__":
 
     # 训练参数
     total_batch_size = 524288
-    B = 64
+    B = 32  # 32 for 2 A100(40G) and  use_compile =true
     T = 1024
     assert total_batch_size % (B * T * ddp_world_size) == 0
     grad_accum_steps = total_batch_size // (B * T * ddp_world_size)
@@ -447,7 +447,7 @@ if __name__ == "__main__":
     model.to(device)
     
     # 启用编译以加速训练
-    use_compile = True
+    use_compile = False # 自己可以先实验是否会加速训练再决定是否开启
     if use_compile:
         model = torch.compile(model)
     

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# 上传训练结果到 Hugging Face
+# 该脚本将上传训练好的模型、日志、损失曲线等文件
 import os
 import shutil
 from huggingface_hub import HfApi
