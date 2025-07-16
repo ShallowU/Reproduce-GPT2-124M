@@ -4,6 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+[中文](README.md) | [English](README_en.md)
 🚀 **从零开始复现GPT-2 (124M)模型的完整训练流程**
 
 这个项目实现了完整的GPT-2 124M参数模型的从头训练，包括分布式训练、数据处理、模型评估和可视化等功能。<br>
