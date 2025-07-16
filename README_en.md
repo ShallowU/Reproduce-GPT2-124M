@@ -4,7 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[中文](README.md) | [English](README_en.md)
+[中文](README.md) | [English](README_en.md) <br>
 🚀 **Complete training pipeline for reproducing GPT-2 (124M) model from scratch**
 
 This project implements a complete training pipeline for GPT-2 124M parameter model from scratch, including distributed training, data processing, model evaluation, and visualization.<br>
